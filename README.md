@@ -1,130 +1,261 @@
-# AI Air Drawing Recognition App
+# AI Hand Drawing Recognition
 
-A real-time hand gesture-controlled drawing application that uses computer vision to detect hand movements and AI to recognize drawn shapes. Draw in the air with your finger and get instant AI-powered recognition of what you've drawn!
+An advanced real-time hand gesture drawing application powered by AI recognition. Draw with your hands, get instant AI feedback, and explore creative possibilities.
 
 ## Features
 
-- **Air Drawing**: Draw in the air using your index finger
-- **Real-time Hand Detection**: Detects hand landmarks and finger positions using MediaPipe
-- **AI Recognition**: Uses Google's Gemini AI to identify drawn shapes and objects
-- **Interactive Web Interface**: Built with Streamlit for easy use
-- **Gesture Controls**:
-  - Index finger up: Draw mode
-  - Thumb up: Clear canvas
-  - Four fingers up (except thumb): Trigger AI recognition
+### Hand Gesture Control
+- **Draw**: Point with index finger to draw on canvas
+- **Clear**: Thumbs up to clear the canvas
+- **AI Recognize**: Hold up four fingers for AI analysis
+- **Save**: Peace sign to save your drawing
+- **Stop**: Closed fist to stop drawing
 
-## Prerequisites
+### AI-Powered Recognition
+- Real-time drawing recognition using Google Gemini AI
+- Multiple analysis modes (Simple, Detailed, Creative, Educational)
+- Recognition history and caching
+- Performance analytics and statistics
 
-- Python 3.7+
-- Webcam/Camera
-- Google Gemini API key
+### Advanced Drawing Features
+- Customizable brush colors and thickness
+- Visual effects (blur, glow, shadow)
+- Multiple drawing modes
+- Undo/redo functionality
+- Auto-save capabilities
 
-## Installation
+### Analytics & Performance
+- Real-time FPS and latency monitoring
+- Gesture usage analytics
+- Drawing complexity analysis
+- Session performance reports
+- Export functionality
 
-1. Clone this repository or download the code files
+## Quick Start
 
-2. Install required packages:
+### Prerequisites
+- Python 3.8 or higher
+- Webcam/camera access
+- Google Gemini API key ([Get one here](https://makersuite.google.com/app/apikey))
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd ai-hand-drawing-recognition
+   ```
+
+2. **Run the setup script**
+   ```bash
+   python setup.py
+   ```
+   This will:
+   - Check system requirements
+   - Install dependencies
+   - Create necessary directories
+   - Set up configuration files
+   - Test camera access
+
+3. **Add your API key**
+   - Edit the `.env` file and add your Gemini API key:
+     ```
+     GEMINI_API_KEY=your_api_key_here
+     ```
+   - Or enter it directly in the app's sidebar
+
+4. **Launch the application**
+   ```bash
+   streamlit run main.py
+   ```
+   Or use the generated launch scripts:
+   - Windows: Double-click `run_app.bat`
+   - Linux/macOS: Run `./run_app.sh`
+
+## Requirements
+
+Create a `requirements.txt` file with the following dependencies:
+
+```
+streamlit>=1.28.0
+opencv-python>=4.8.0
+cvzone>=1.6.1
+google-generativeai>=0.3.0
+Pillow>=10.0.0
+numpy>=1.24.0
+mediapipe>=0.10.0
+protobuf>=3.20.0
+```
+
+Install dependencies using:
 ```bash
-pip install opencv-python
-pip install cvzone
-pip install numpy
-pip install google-generativeai
-pip install Pillow
-pip install streamlit
+pip install -r requirements.txt
 ```
 
-3. Get a Google Gemini API key:
-   - Visit [Google AI Studio](https://makersuite.google.com/)
-   - Create an account and generate an API key
-   - Replace `"YOUR_API_KEY"` in the code with your actual API key
-
-4. Add a banner image:
-   - Place a `banner.png` file in the same directory as the script
-   - This will be displayed at the top of the app
-
-## Usage
-
-1. Run the application:
-```bash
-streamlit run app.py
-```
-
-2. The app will open in your web browser
-
-3. Make sure your webcam is working and you're visible in the frame
-
-4. Use hand gestures to interact:
-   - **Draw**: Raise only your index finger and move it to draw
-   - **Clear**: Raise only your thumb to clear the canvas
-   - **Recognize**: Raise four fingers (index, middle, ring, pinky) to ask AI what you drew
-
-## How It Works
-
-1. **Hand Detection**: Uses CVZone's HandTrackingModule (based on MediaPipe) to detect hand landmarks
-2. **Gesture Recognition**: Analyzes finger positions to determine current gesture
-3. **Drawing System**: Tracks index finger movement to create lines on a virtual canvas
-4. **AI Integration**: Sends canvas image to Google Gemini AI for object recognition
-5. **Real-time Display**: Combines webcam feed with drawing overlay using Streamlit
-
-## File Structure
+## Project Structure
 
 ```
-├── app.py              # Main application file
-├── banner.png          # Banner image for the app
-└── README.md           # This file
+ai-hand-drawing-recognition/
+├── main.py                     # Main Streamlit application
+├── hand_gesture_manager.py     # Hand detection and gesture recognition
+├── canvas_manager.py           # Drawing canvas management
+├── ai_manager.py              # AI recognition and analysis
+├── advanced_features.py       # Additional advanced features
+├── utils.py                   # Utility functions
+├── setup.py                   # Installation and setup script
+├── requirements.txt           # Python dependencies
+├── config.yaml               # Configuration file
+├── README.md                 # This file
+├── saved_drawings/           # Directory for saved drawings
+├── logs/                     # Application logs
+├── cache/                    # AI recognition cache
+└── sessions/                 # Session data
 ```
 
-## Configuration Options
+## Configuration
 
-You can modify these parameters in the code:
+### Camera Settings
+- Adjust camera index in sidebar (0, 1, 2...)
+- Resolution and FPS can be configured in `config.yaml`
 
-- `maxHands=1`: Maximum number of hands to detect
-- `detectionCon=0.7`: Hand detection confidence threshold
-- `minTrackCon=0.5`: Hand tracking confidence threshold
-- Drawing line thickness: Currently set to 10 pixels
-- Canvas opacity: 30% overlay on webcam feed
+### Hand Detection
+- **Detection Confidence**: Minimum confidence for hand detection (0.1-1.0)
+- **Tracking Confidence**: Minimum confidence for hand tracking (0.1-1.0)
+- **Gesture Stability**: Time to hold gesture before confirmation
+
+### Drawing Settings
+- **Brush Color**: Choose any color for drawing
+- **Brush Thickness**: Adjust stroke width (1-20px)
+- **Canvas Effects**: Enable blur, glow, or shadow effects
+
+### AI Settings
+- **Analysis Depth**: Choose between Basic, Detailed, Creative, or Educational
+- **Auto Recognition**: Automatically analyze drawings after inactivity
+- **Caching**: Enable/disable result caching for performance
+
+## Usage Guide
+
+### Basic Drawing
+1. Start the camera by checking "Run Camera"
+2. Point your index finger to start drawing
+3. Move your hand to create strokes
+4. Make a fist to stop drawing without lifting
+
+### AI Recognition
+1. Draw something on the canvas
+2. Hold up four fingers (all except pinky)
+3. Wait for AI analysis to appear
+4. View results in the "AI Recognition" panel
+
+### Saving and Exporting
+1. Use peace sign gesture or click "Save Drawing"
+2. Drawings are saved in the `saved_drawings/` directory
+3. Export session reports from the advanced features panel
+
+### Performance Monitoring
+- Enable FPS counter and latency monitoring in sidebar
+- View gesture analytics and usage statistics
+- Monitor drawing complexity and canvas utilization
 
 ## Troubleshooting
 
-**Camera not working:**
-- Check if another application is using the camera
-- Try changing `cv2.VideoCapture(0)` to `cv2.VideoCapture(1)` for external cameras
+### Camera Issues
+- **Camera not detected**: Try different camera indices (0, 1, 2...)
+- **Permission denied**: Grant camera access in system settings
+- **Poor detection**: Ensure good lighting and clear background
 
-**Hand detection issues:**
-- Ensure good lighting
-- Keep hand clearly visible in frame
-- Adjust detection confidence if needed
+### Hand Detection Issues
+- **Gestures not recognized**: Adjust detection confidence settings
+- **Unstable tracking**: Increase tracking confidence
+- **False positives**: Reduce detection sensitivity
 
-**API errors:**
-- Verify your Gemini API key is correct
-- Check your internet connection
-- Ensure you haven't exceeded API rate limits
+### AI Recognition Issues
+- **No recognition**: Check API key configuration
+- **Slow responses**: Enable caching or reduce image quality
+- **Poor accuracy**: Try different analysis modes
 
-**Performance issues:**
-- Close other applications using the camera
-- Reduce image resolution if needed
-- Check CPU usage
+### Performance Issues
+- **Low FPS**: Reduce camera resolution or disable effects
+- **High latency**: Close other applications using camera
+- **Memory usage**: Clear cache periodically
 
-## Dependencies
+## Advanced Configuration
 
-- `opencv-python`: Computer vision operations
-- `cvzone`: Hand tracking and detection
-- `numpy`: Array operations
-- `google-generativeai`: Gemini AI integration
-- `Pillow`: Image processing
-- `streamlit`: Web interface
+### Custom Gestures
+Edit `config.yaml` to modify gesture patterns:
+```yaml
+gestures:
+  patterns:
+    draw: [0, 1, 0, 0, 0]      # Index finger up
+    clear: [1, 0, 0, 0, 0]     # Thumb up
+    # Add your custom patterns here
+```
 
-## License
+### AI Prompts
+Customize AI analysis prompts in `ai_manager.py`:
+```python
+self.custom_prompts = {
+    'custom': "Your custom prompt here",
+    # Add more prompt types
+}
+```
 
-This project is open source. Feel free to modify and distribute.
+### Performance Tuning
+Adjust settings in `config.yaml`:
+```yaml
+performance:
+  max_frame_rate: 30
+  processing_threads: 2
+  enable_gpu_acceleration: false
+```
+
+## Analytics Dashboard
+
+The application provides comprehensive analytics:
+
+### Gesture Analytics
+- Total gestures used
+- Most frequently used gestures
+- Gestures per minute
+- Usage distribution charts
+
+### Drawing Statistics
+- Canvas coverage percentage
+- Drawing complexity metrics
+- Total drawing points
+- Session duration
+
+### AI Performance
+- Recognition accuracy
+- Processing times
+- Cache hit rates
+- API usage statistics
 
 ## Contributing
 
-Feel free to submit issues, fork the repository, and create pull requests for any improvements.
+We welcome contributions! Here's how to help:
 
-## Acknowledgments
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-- CVZone for the hand tracking module
-- Google for the Gemini AI API
-- MediaPipe for hand landmark detection
-- Streamlit for the web interface
+### Development Setup
+```bash
+# Install development dependencies
+pip install -r requirements-dev.txt
+
+# Run tests
+python -m pytest tests/
+
+# Run linting
+flake8 *.py
+
+# Format code
+black *.py
+```
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
