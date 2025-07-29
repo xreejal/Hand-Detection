@@ -218,3 +218,34 @@ class AIManager:
             """
             
             response = self.model.generate_content([complexity_prompt, pil_image])
+            if response and response.text:
+                return response.text.strip()
+            else:
+                return "Unable to analyze complexity"
+                
+        except Exception as e:
+            return f"Complexity analysis error: {str(e)}"
+    
+    def get_drawing_suggestions(self, pil_image):
+        if not self.api_configured or not self.model:
+            return "AI not configured"
+        
+        try:
+            suggestion_prompt = """
+            Look at this drawing and provide 3 constructive suggestions for improvement.
+            Focus on:
+            1. Adding details that would make it more recognizable
+            2. Improving proportions or structure
+            3. Enhancing artistic elements
+            
+            Keep suggestions encouraging and specific.
+            """
+            
+            response = self.model.generate_content([suggestion_prompt, pil_image])
+            if response and response.text:
+                return response.text.strip()
+            else:
+                return "Unable to generate suggestions"
+                
+        except Exception as e:
+            return f"Suggestion error: {str(e)}"
