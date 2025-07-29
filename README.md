@@ -1,6 +1,6 @@
 # AI Hand Drawing Recognition
 
-An advanced real-time hand gesture drawing application powered by AI recognition. Draw with your hands, get instant AI feedback, and explore creative possibilities.
+An advanced real-time hand gesture drawing application powered by AI recognition. Draw with your hands, get instant AI feedback! It is designed to track your fingerprints in real-time, while allowing for better preceision in drawing mid-air. We will most likely turn this into a tool for video calls, but open to contributions!
 
 ## Features
 
